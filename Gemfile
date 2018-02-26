@@ -28,12 +28,20 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-# Use Capistrano for deployment
+gem 'faker', '~> 1.8.7'
+gem  'cancancan', '~>2.0'
+
+gem 'jquery-rails'
+gem 'bootstrap', '~> 4.0.0'
+
+# Use Capistrano for deplogit yment
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'hirb'
+  gem 'awesome_print'
 end
 
 group :development do
