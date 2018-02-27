@@ -1,0 +1,7 @@
+<%= form_for @idea do |f| %>
+  <%= f.label :title %> <br>
+  <%= f.text_field :title, placeholder: "Idea Title.." %> <br>
+  <%= f.label :description %> <br>
+  <%= f.text_area :description, placeholder: "What's your idea.." %> <br>
+  <%= f.submit "Post", class: "btn btn-dark"  %>
+<% end %>

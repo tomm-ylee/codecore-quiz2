@@ -1,0 +1,29 @@
+<h1> <%= @idea.title %> </h1>
+<p> <%= @idea.description %> </p>
+
+<small>
+  By <%= @idea.user.first_name %> <%= time_ago_in_words(@idea.created_at) %> ago.
+</small>
+<% if can?(:manage, @idea) %>
+  <%= link_to 'edit', edit_idea_path(@idea) %>
+  <%= link_to 'delete', idea_path(@idea), method: :delete %>
+<% end %>
+
+<div class="container-fluid" id="new-review-form">
+  <%= form_for [@idea, @review] do |f| %>
+    <%= f.text_area :comment, placeholder: "Would you like to share your thoughts?" %> <br>
+    <%= f.submit 'Add Review', class: "btn btn-dark" %>
+  <% end %>
+</div>
+
+<% @reviews.each do |review| %>
+  <div class="review-container">
+    <p><%= review.comment %></p>
+    <small>By <%= review.user.first_name %> <%= time_ago_in_words(@idea.created_at) %> ago.</small>
+    <% if can?(:manage, review) %>
+      <%= link_to 'delete', review_path(review), method: :delete %>
+    <% end %>
+    <hr>
+  </div>
+
+<% end %>

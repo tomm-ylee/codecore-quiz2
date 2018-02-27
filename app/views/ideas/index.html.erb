@@ -1,0 +1,11 @@
+<% @ideas.each do |idea| %>
+  <div class="idea-container">
+    <h3>
+      <small class="description-toggle">➕</small>
+      <%= link_to idea.title, idea_path(idea) %> <small>by <%= idea.user.first_name %> </small>
+    </h3>
+    <p class="idea-description hidden"><%= idea.description %></p>
+    <small><%= idea.created_at.to_date.to_formatted_s(:rfc822) %></small>
+    <hr>
+  </div>
+<% end %>
