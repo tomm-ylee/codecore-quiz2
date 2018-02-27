@@ -13,8 +13,13 @@
       <div class="container-fluid">
         <%= link_to '💡', root_path, id:"nav-logo"%>
         <% if current_user.present? %>
-          <span><%= current_user.first_name %></span>
-          <%= link_to 'New Idea', new_idea_path %>
+
+          <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#newIdeaForm">
+            New Idea
+          </button>
+
+          <span><strong><%= current_user.first_name %></strong></span>
+          <!-- <%= link_to 'New Idea', new_idea_path %> -->
           <%= link_to 'Sign Out', session_path, method: :delete %>
         <% else %>
           <%= link_to 'Sign In', new_session_path %>
@@ -39,25 +44,51 @@
       <%= yield %>
     </div>
 
-  <script>
-    document.querySelectorAll('.description-toggle').forEach(node => {
-      node.addEventListener('click', event => {
-        const {currentTarget} = event
-        targetDescription = currentTarget.parentElement.parentElement.querySelector('.idea-description')
-        if (currentTarget.innerHTML === '➕') {
-          currentTarget.innerHTML = '➖'
-          targetDescription.classList.remove('hidden')
-        } else {
-          currentTarget.innerHTML = '➕'
-          targetDescription.classList.add('hidden')
-        }
+    <div class="modal" id="newIdeaForm" tabindex="-1">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalLabel">New Idea Form</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="new_idea" method="post" action="/ideas">
+              <input name="utf8" type="hidden" value="✓">
+              <input type="hidden" name="authenticity_token" value="Lvw+fHeHOMgPy57+9G8D+Ag+8f+x7zAfiADk6tkSAFglqPHoA9goUI9kgHtgkcWH67LuGQfMjR8zWqx0zJhxaA==">
+              <label for="idea_title">Title</label>
+              <br>
+              <input placeholder="Idea Title.." type="text" name="idea[title]" id="idea_title">
+              <br>
+              <label for="idea_description">Description</label>
+              <br>
+              <textarea placeholder="What's your idea.." name="idea[description]" id="idea_description"></textarea>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
+                <input type="submit" name="commit" value="Post" class="btn btn-dark" data-disable-with="Post">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <script>
+      document.querySelectorAll('.description-toggle').forEach(node => {
+        node.addEventListener('click', event => {
+          const {currentTarget} = event
+          targetDescription = currentTarget.parentElement.parentElement.querySelector('.idea-description')
+          if (currentTarget.innerHTML === '➕') {
+            currentTarget.innerHTML = '➖'
+            targetDescription.classList.remove('hidden')
+          } else {
+            currentTarget.innerHTML = '➕'
+            targetDescription.classList.add('hidden')
+          }
+        });
       });
-    });
-
-
-
-  </script>
+    </script>
 
   </body>
 </html>

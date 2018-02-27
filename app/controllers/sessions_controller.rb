@@ -2,6 +2,7 @@ class SessionsController < ApplicationController
   def create
     if @user = User.find_by(email: params[:session][:email])
       session[:user_id] = @user.id
+      flash[:notice] = "Welcome, #{@user.first_name}"
       redirect_to root_path
     else
       flash[:alert] = "Email not found"
